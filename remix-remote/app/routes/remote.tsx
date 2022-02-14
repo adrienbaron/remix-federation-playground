@@ -11,12 +11,12 @@ export default function Remote() {
   return (
       <div style={{fontFamily: "system-ui, sans-serif", lineHeight: "1.4"}}>
         <h1>Remote Remix page!</h1>
-        <p>
+        <div style={{marginBottom: "1rem"}}>
           <div>
             <strong>{counter}</strong>
           </div>
           <button onClick={() => setCounter(c => c + 1)}>Increase Counter</button>
-        </p>
+        </div>
         <Link to="/">Back to host</Link>
       </div>
   )
