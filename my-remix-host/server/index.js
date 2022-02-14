@@ -15,14 +15,14 @@ app.use(compression())
 
 // You may want to be more aggressive with this caching
 app.use(express.static("public", {maxAge: "1h"}))
-app.use(express.static("../my-remix-app/public", {maxAge: "1h"}))
+app.use(express.static("../remix-remote/public", {maxAge: "1h"}))
 
 // Remix fingerprints its assets so we can cache forever
 app.use(express.static("public/build", {immutable: true, maxAge: "1y"}))
 
 const getBuild = () => {
-  const remoteBuildBundle = fs.readFileSync(path.join(process.cwd(), "../my-remix-app/server/build/index.js"))
-  const remoteAssets = JSON.parse(fs.readFileSync(path.join(process.cwd(), "../my-remix-app/server/build/assets.json")).toString())
+  const remoteBuildBundle = fs.readFileSync(path.join(process.cwd(), "../remix-remote/server/build/index.js"))
+  const remoteAssets = JSON.parse(fs.readFileSync(path.join(process.cwd(), "../remix-remote/server/build/assets.json")).toString())
 
   const remoteBuild = requireFromString(remoteBuildBundle.toString("utf-8"), path.join(BUILD_DIR, "./index.js"))
   const localBuild = require("./build")
