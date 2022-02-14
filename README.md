@@ -10,7 +10,7 @@ The host express server will consume only its JS server bundle, and serve its pu
 
 ## How to run locally in dev mode
 
-### Start remote
+### Start building remote
 
 ```
 cd remix-remote
@@ -18,13 +18,14 @@ npm i
 npm run dev
 ```
 
-### Start host
+### Start building host
 ```
 cd remix-host
 npm i
 npm run dev
 ```
 
+### Serve host
 ```
 cd remix-host
 npm run start:dev
