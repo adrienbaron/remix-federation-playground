@@ -53,7 +53,7 @@ let build = getBuild();
 app.use(morgan("tiny"))
 
 app.get("/manifest.js", (req, res) => {
-  res.send(`window.__remixManifest = ${JSON.stringify(build.assets)}`)
+  res.send(`window.__remixManifest = ${JSON.stringify(build.assets, undefined, 2)}`)
 })
 
 app.all(
