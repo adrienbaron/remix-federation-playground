@@ -4,7 +4,9 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build": "NODE_ENV=development remix build",
+    "build": "npm run clean:build && remix build",
+    "build:dev": "npm run clean:build && NODE_ENV=development remix build",
+    "clean:build": "rm -rf server/build && rm -rf public/build",
     "dev": "remix watch",
     "postinstall": "remix setup node",
     "start": "cross-env PORT=3001 NODE_ENV=production node server/index.js",
