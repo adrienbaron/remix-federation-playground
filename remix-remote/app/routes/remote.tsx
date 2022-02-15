@@ -1,4 +1,4 @@
-import {Link} from "@remix-run/react"
+import {Link, useLoaderData} from "@remix-run/react"
 import {useState} from "react"
 
 export const loader = () => {
@@ -7,10 +7,12 @@ export const loader = () => {
 
 export default function Remote() {
   const [counter, setCounter] = useState(0)
+  const loaderData = useLoaderData()
 
   return (
       <div style={{fontFamily: "system-ui, sans-serif", lineHeight: "1.4"}}>
         <h1>Remote Remix page!</h1>
+        <p>Loader Data: {loaderData.data}</p>
         <div style={{marginBottom: "1rem"}}>
           <div>
             <strong>{counter}</strong>

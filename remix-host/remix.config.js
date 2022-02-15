@@ -7,5 +7,6 @@ module.exports = {
   publicPath: "/build/",
   serverBuildDirectory: "server/build",
   devServerPort: 8003,
-  ignoredRouteFiles: [".*"]
+  ignoredRouteFiles: [".*"],
+  isRemixMicroFrontend: "host"
 };
