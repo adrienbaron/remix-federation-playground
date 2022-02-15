@@ -12,7 +12,7 @@ export default function Remote() {
   return (
       <div style={{fontFamily: "system-ui, sans-serif", lineHeight: "1.4"}}>
         <h1>Remote Remix page!</h1>
-        <p>Loader Data: {loaderData.data}</p>
+        <p>Loader Data: <strong>{loaderData.data}</strong></p>
         <div style={{marginBottom: "1rem"}}>
           <div>
             <strong>{counter}</strong>
