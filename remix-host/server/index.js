@@ -5,7 +5,6 @@ const compression = require("compression")
 const morgan = require("morgan")
 const {createRequestHandler} = require("@remix-run/express")
 const requireFromString = require('require-from-string')
-const localBuild = require("./build")
 
 const MODE = process.env.NODE_ENV
 const BUILD_DIR = path.join(process.cwd(), "server/build")
@@ -22,18 +21,17 @@ app.use(express.static("public/build", {immutable: true, maxAge: "1y"}))
 
 const getBuild = () => {
   const remoteBuildBundle = fs.readFileSync(path.join(process.cwd(), "../remix-remote/server/build/index.js"))
-  const remoteAssets = JSON.parse(fs.readFileSync(path.join(process.cwd(), "../remix-remote/server/build/assets.json")).toString())
 
   const remoteBuild = requireFromString(remoteBuildBundle.toString("utf-8"), path.join(BUILD_DIR, "./index.js"))
   const localBuild = require("./build")
 
-  const addRemoteBuild = (localBuild, remoteBuild, remoteAssets) => {
+  const addRemoteBuild = (localBuild, remoteBuild) => {
     return {
       ...localBuild,
       assets: {
         ...localBuild.assets,
         routes: {
-          ...remoteAssets.routes,
+          ...remoteBuild.assets.routes,
           ...localBuild.assets.routes,
         },
         url: "/manifest.js"
@@ -45,7 +43,7 @@ const getBuild = () => {
     }
   }
 
-  return addRemoteBuild(localBuild, remoteBuild, remoteAssets)
+  return addRemoteBuild(localBuild, remoteBuild)
 }
 
 let build = getBuild();
