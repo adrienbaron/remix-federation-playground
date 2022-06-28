@@ -44,15 +44,9 @@ npm i
 npm run dev
 ```
 
-### Start building host
+### Start building and serving host
 ```
 cd remix-host
 npm i
 npm run dev
-```
-
-### Serve host
-```
-cd remix-host
-npm run start:dev
 ```
