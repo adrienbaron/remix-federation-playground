@@ -12,7 +12,7 @@ const BUILD_DIR = path.join(process.cwd(), "server/build")
 const app = express()
 app.use(compression())
 
-// You may want to be more aggressive with this caching
+// Serve both host and remote static assets
 app.use(express.static("public", {maxAge: "1h"}))
 app.use(express.static("../remix-remote/public", {maxAge: "1h"}))
 
@@ -20,11 +20,15 @@ app.use(express.static("../remix-remote/public", {maxAge: "1h"}))
 app.use(express.static("public/build", {immutable: true, maxAge: "1y"}))
 
 const getBuild = () => {
+  // Read remote build from disk, this could be fetched from S3 for example
   const remoteBuildBundle = fs.readFileSync(path.join(process.cwd(), "../remix-remote/server/build/index.js"))
 
+  // Evaluate the remote CJS bundle
   const remoteBuild = requireFromString(remoteBuildBundle.toString("utf-8"), path.join(BUILD_DIR, "./index.js"))
+  // Load host build
   const localBuild = require("./build")
 
+  // Merge host and remote builds together
   const addRemoteBuild = (localBuild, remoteBuild) => {
     return {
       ...localBuild,
@@ -60,6 +64,7 @@ app.all(
     ? createRequestHandler({build})
     : (req, res, next) => {
       purgeRequireCache()
+      // In dev mode, get the build each time to get HMR
       build = getBuild();
       return createRequestHandler({build, mode: MODE})(req, res, next)
     }

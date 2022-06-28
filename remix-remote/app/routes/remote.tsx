@@ -3,7 +3,7 @@ import {useState} from "react"
 import {ActionFunction} from "remix"
 
 export const loader = () => {
-  return {"data": "This is some data from the loader"}
+  return {"data": "This is some data from the loader on remote"}
 }
 
 export const action: ActionFunction = async ({request}) => {
