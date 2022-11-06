@@ -55,6 +55,7 @@ let build = getBuild();
 app.use(morgan("tiny"))
 
 app.get("/manifest.js", (req, res) => {
+  res.header('Content-Type', 'application/javascript')
   res.send(`window.__remixManifest = ${JSON.stringify(build.assets, undefined, 2)}`)
 })
 
