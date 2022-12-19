@@ -48,5 +48,6 @@ npm run dev
 ```
 cd remix-host
 npm i
+npm run build # if you have not run build before in remix-host.
 npm run dev
 ```
